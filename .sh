@@ -5,8 +5,7 @@ flag() {
 		[[ -e ".flags/$f" ]] || return 1
 	done
 }
-if flag local; then
-	:
-else
-	:
-fi
+tsc
+node dist/pug.js
+sass src/style.scss style.css
+elm make src/Main.elm --output=elm.js
