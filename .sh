@@ -7,7 +7,7 @@ flag() {
 }
 tsc
 node dist/pug.js
-sass --no-source-map src/style.scss style.css
+sass --no-source-map src/style.scss dist/style.css
 mkdir -p src/{bak,tmp}
 ELM=src/Main.elm
 TMP=src/tmp/Main.elm
@@ -18,7 +18,7 @@ if $(perl -0777 -pe '
     s/(?<=\b0x)0+(?=[0-9A-F]+\b)//g;
 ' $ELM > $TMP) && [[ -s $TMP ]]; then
 	mv $TMP $ELM
-	elm make $ELM --output=elm.js
+	elm make $ELM --output=dist/elm.js
 else
 	cp $BAK $ELM
 	echo "RegEx Clean Error!" >&2
