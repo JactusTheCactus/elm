@@ -4584,11 +4584,6 @@ var $author$project$Main$char = function (character) {
 		_List_fromArray(
 			[
 				$elm$html$Html$Attributes$class('character'),
-				$elm$html$Html$Attributes$id(
-				A2(
-					$elm$core$Maybe$withDefault,
-					'n/a',
-					A2($elm$core$Array$get, 0, name))),
 				A2($elm$html$Html$Attributes$attribute, 'sex', sex)
 			]),
 		_List_fromArray(
@@ -4648,7 +4643,9 @@ var $author$project$Main$char = function (character) {
 						$elm$html$Html$Attributes$id('extra')
 					]),
 				_List_fromArray(
-					[extra]))
+					[
+						$elm$html$Html$text(extra)
+					]))
 			]));
 };
 var $elm$core$String$cons = _String_cons;
@@ -4662,22 +4659,31 @@ var $author$project$Main$uni = function (n) {
 };
 var $author$project$Main$em = F2(
 	function (n, c) {
-		return (n === 1) ? _Utils_ap(
-			c,
-			$author$project$Main$uni(769)) : ((n === 2) ? _Utils_ap(
-			c,
-			$author$project$Main$uni(768)) : c);
+		switch (n) {
+			case 1:
+				return _Utils_ap(
+					c,
+					$author$project$Main$uni(769));
+			case 2:
+				return _Utils_ap(
+					c,
+					$author$project$Main$uni(768));
+			default:
+				return c;
+		}
 	});
 var $author$project$Main$omega = $author$project$Main$uni(969);
 var $author$project$Main$schwa = $author$project$Main$uni(601);
 var $elm$html$Html$table = _VirtualDom_node('table');
 var $elm$html$Html$th = _VirtualDom_node('th');
-var $author$project$Main$tie = function (pair) {
-	return A2(
-		$elm$core$String$join,
-		$author$project$Main$uni(863),
-		pair);
-};
+var $author$project$Main$tie = F2(
+	function (pair, emph) {
+		var tiebar = $author$project$Main$uni(183);
+		return '[' + (A2(
+			$elm$core$String$join,
+			(emph > 0) ? A2($author$project$Main$em, emph, tiebar) : tiebar,
+			pair) + ']');
+	});
 var $author$project$Main$main = A2(
 	$elm$html$Html$table,
 	_List_fromArray(
@@ -4715,23 +4721,22 @@ var $author$project$Main$main = A2(
 				])),
 			$author$project$Main$char(
 			{
-				extra: $elm$html$Html$text('Shapeshifts into a large, black Wolf'),
+				extra: 'Shapeshifts into a large, black Wolf',
 				name: _List_fromArray(
 					[
 						'Hound',
-						'H' + ($author$project$Main$tie(
+						'H' + (A2(
+						$author$project$Main$tie,
 						_List_fromArray(
-							[
-								A2($author$project$Main$em, 1, 'a'),
-								'u'
-							])) + 'nd')
+							['a', 'u']),
+						1) + ('n' + 'd'))
 					]),
 				sex: 'Female',
 				species: 'Changeling'
 			}),
 			$author$project$Main$char(
 			{
-				extra: $elm$html$Html$text('Wields a scythe'),
+				extra: 'Wields a scythe',
 				name: _List_fromArray(
 					[
 						'Morrigan',

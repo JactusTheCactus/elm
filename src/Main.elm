@@ -1,67 +1,62 @@
 module Main exposing (main)
-
 import Array exposing (..)
-import Html exposing (Html, br, span, table, td, text, th, tr)
+import Html exposing (br, span, table, td, text, th, tr)
 import Html.Attributes exposing (attribute, class, id)
-
-
 uni : Int -> String
-uni n =
-    String.fromChar (Char.fromCode n)
-
-
-em : String -> Int -> String
-em c n =
-    if n == 1 then
-        c ++ uni 0x0301
-
-    else if n == 2 then
-        c ++ uni 0x0300
-
-    else
-        c
-
-
-tie : List String -> String
-tie pair =
-    String.join (uni 0x035F) pair
-
-
+uni =
+    \n -> String.fromChar (Char.fromCode n)
+em : Int -> String -> String
+em n c =
+    case n of
+        1 ->
+            c ++ uni 0x301
+        2 ->
+            c ++ uni 0x300
+        _ ->
+            c
+tie : List String -> Int -> String
+tie pair emph =
+    let
+        tiebar : String
+        tiebar =
+            uni 0xB7
+    in
+    "["
+        ++ String.join
+            (if emph > 0 then
+                em emph tiebar
+             else
+                tiebar
+            )
+            pair
+        ++ "]"
 omega : String
 omega =
-    uni 0x03C9
-
-
+    uni 0x3C9
 schwa : String
 schwa =
-    uni 0x0259
-
-
+    uni 0x259
 char :
     { character
         | name : List String
         , species : String
         , sex : String
-        , extra : Html msg
+        , extra : String
     }
     -> Html.Html msg
 char character =
     let
         name =
             Array.fromList character.name
-
         species =
             character.species
-
         sex =
             character.sex
-
         extra =
             character.extra
     in
     tr
         [ class "character"
-        , id (Maybe.withDefault "n/a" (Array.get 0 name))
         , attribute "sex" sex
         ]
         [ td [ id "name" ]
@@ -70,10 +65,8 @@ char character =
             , span [ class "pro" ] [ text (Maybe.withDefault "N/A" (Array.get 1 name)) ]
             ]
         , td [ id "species" ] [ text species ]
-        , td [ id "extra" ] [ extra ]
+        , td [ id "extra" ] [ text extra ]
         ]
-
-
 main : Html.Html msg
 main =
     table [ id "characters" ]
@@ -85,19 +78,19 @@ main =
         , char
             { name =
                 [ "Hound"
-                , "H" ++ tie [ em "a" 1, "u" ] ++ "nd"
+                , "H" ++ tie [ "a", "u" ] 1 ++ "n" ++ "d"
                 ]
             , species = "Changeling"
             , sex = "Female"
-            , extra = text "Shapeshifts into a large, black Wolf"
+            , extra = "Shapeshifts into a large, black Wolf"
             }
         , char
             { name =
                 [ "Morrigan"
-                , "M" ++ em omega 1 ++ "r" ++ schwa ++ "g" ++ em "y" 2 ++ "n"
+                , "M" ++ em 1 omega ++ "r" ++ schwa ++ "g" ++ em 2 "y" ++ "n"
                 ]
             , species = "Reaper"
             , sex = "Female"
-            , extra = text "Wields a scythe"
+            , extra = "Wields a scythe"
             }
         ]
