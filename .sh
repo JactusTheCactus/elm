@@ -5,8 +5,12 @@ flag() {
 		[[ -e ".flags/$f" ]] || return 1
 	done
 }
-npm ci
-npx tsc
+if flag local; then
+	tsc
+else
+	npm ci
+	npx tsc
+fi
 node dist/pug.js
 sass --no-source-map src/style.scss dist/style.css
 mkdir -p src/{bak,tmp}
