@@ -3937,43 +3937,6 @@ function _VirtualDom_dekey(keyedNode)
 		b: keyedNode.b
 	};
 }
-
-
-
-var _Bitwise_and = F2(function(a, b)
-{
-	return a & b;
-});
-
-var _Bitwise_or = F2(function(a, b)
-{
-	return a | b;
-});
-
-var _Bitwise_xor = F2(function(a, b)
-{
-	return a ^ b;
-});
-
-function _Bitwise_complement(a)
-{
-	return ~a;
-};
-
-var _Bitwise_shiftLeftBy = F2(function(offset, a)
-{
-	return a << offset;
-});
-
-var _Bitwise_shiftRightBy = F2(function(offset, a)
-{
-	return a >> offset;
-});
-
-var _Bitwise_shiftRightZfBy = F2(function(offset, a)
-{
-	return a >>> offset;
-});
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var $elm$core$Array$foldr = F3(
@@ -4482,109 +4445,20 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
-			var jsArray = _v0.a;
-			var remainingItems = _v0.b;
-			if (_Utils_cmp(
-				$elm$core$Elm$JsArray$length(jsArray),
-				$elm$core$Array$branchFactor) < 0) {
-				return A2(
-					$elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					$elm$core$List$cons,
-					$elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var $elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return $elm$core$Array$empty;
-	} else {
-		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
-};
-var $elm$core$Bitwise$and = _Bitwise_and;
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
-var $elm$core$Basics$ge = _Utils_ge;
-var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
-var $elm$core$Array$getHelp = F3(
-	function (shift, index, tree) {
-		getHelp:
-		while (true) {
-			var pos = $elm$core$Array$bitMask & (index >>> shift);
-			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_v0.$ === 'SubTree') {
-				var subTree = _v0.a;
-				var $temp$shift = shift - $elm$core$Array$shiftStep,
-					$temp$index = index,
-					$temp$tree = subTree;
-				shift = $temp$shift;
-				index = $temp$index;
-				tree = $temp$tree;
-				continue getHelp;
-			} else {
-				var values = _v0.a;
-				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
-			}
-		}
-	});
-var $elm$core$Bitwise$shiftLeftBy = _Bitwise_shiftLeftBy;
-var $elm$core$Array$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var $elm$core$Array$get = F2(
-	function (index, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
-			index,
-			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
-			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
-			A3($elm$core$Array$getHelp, startShift, index, tree)));
-	});
+var $elm$html$Html$code = _VirtualDom_node('code');
 var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$html$Html$td = _VirtualDom_node('td');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$tr = _VirtualDom_node('tr');
-var $elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var $author$project$Main$char = function (character) {
-	var species = character.species;
-	var sex = character.sex;
-	var name = $elm$core$Array$fromList(character.name);
-	var extra = character.extra;
 	return A2(
 		$elm$html$Html$tr,
 		_List_fromArray(
 			[
 				$elm$html$Html$Attributes$class('character'),
-				A2($elm$html$Html$Attributes$attribute, 'sex', sex)
+				A2($elm$html$Html$Attributes$attribute, 'sex', character.sex)
 			]),
 		_List_fromArray(
 			[
@@ -4604,26 +4478,18 @@ var $author$project$Main$char = function (character) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(
-								A2(
-									$elm$core$Maybe$withDefault,
-									'N/A',
-									A2($elm$core$Array$get, 0, name)))
+								$elm$html$Html$text(character.names.name)
 							])),
 						A2($elm$html$Html$br, _List_Nil, _List_Nil),
 						A2(
-						$elm$html$Html$span,
+						$elm$html$Html$code,
 						_List_fromArray(
 							[
 								$elm$html$Html$Attributes$class('pro')
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(
-								A2(
-									$elm$core$Maybe$withDefault,
-									'N/A',
-									A2($elm$core$Array$get, 1, name)))
+								$elm$html$Html$text('<' + (character.names.pro + '>'))
 							]))
 					])),
 				A2(
@@ -4634,7 +4500,7 @@ var $author$project$Main$char = function (character) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(species)
+						$elm$html$Html$text(character.species)
 					])),
 				A2(
 				$elm$html$Html$td,
@@ -4644,7 +4510,7 @@ var $author$project$Main$char = function (character) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(extra)
+						$elm$html$Html$text(character.extra)
 					]))
 			]));
 };
@@ -4657,33 +4523,47 @@ var $author$project$Main$uni = function (n) {
 	return $elm$core$String$fromChar(
 		$elm$core$Char$fromCode(n));
 };
+var $author$project$Main$acute = function (c) {
+	return _Utils_ap(
+		c,
+		$author$project$Main$uni(769));
+};
+var $author$project$Main$grave = function (c) {
+	return _Utils_ap(
+		c,
+		$author$project$Main$uni(768));
+};
+var $author$project$Main$macron = function (c) {
+	return _Utils_ap(
+		c,
+		$author$project$Main$uni(772));
+};
 var $author$project$Main$em = F2(
 	function (n, c) {
 		switch (n) {
 			case 1:
-				return _Utils_ap(
-					c,
-					$author$project$Main$uni(769));
+				return $author$project$Main$acute(c);
 			case 2:
-				return _Utils_ap(
-					c,
-					$author$project$Main$uni(768));
+				return $author$project$Main$grave(c);
+			case 3:
+				return $author$project$Main$macron(c);
 			default:
 				return c;
 		}
+	});
+var $author$project$Main$dot = $author$project$Main$uni(183);
+var $author$project$Main$group = F3(
+	function (n, a, b) {
+		return '[' + (A2(
+			$elm$core$String$join,
+			(n > 0) ? A2($author$project$Main$em, n, $author$project$Main$dot) : $author$project$Main$dot,
+			_List_fromArray(
+				[a, b])) + ']');
 	});
 var $author$project$Main$omega = $author$project$Main$uni(969);
 var $author$project$Main$schwa = $author$project$Main$uni(601);
 var $elm$html$Html$table = _VirtualDom_node('table');
 var $elm$html$Html$th = _VirtualDom_node('th');
-var $author$project$Main$tie = F2(
-	function (pair, emph) {
-		var tiebar = $author$project$Main$uni(183);
-		return '[' + (A2(
-			$elm$core$String$join,
-			(emph > 0) ? A2($author$project$Main$em, emph, tiebar) : tiebar,
-			pair) + ']');
-	});
 var $author$project$Main$main = A2(
 	$elm$html$Html$table,
 	_List_fromArray(
@@ -4722,26 +4602,20 @@ var $author$project$Main$main = A2(
 			$author$project$Main$char(
 			{
 				extra: 'Shapeshifts into a large, black Wolf',
-				name: _List_fromArray(
-					[
-						'Hound',
-						'H' + (A2(
-						$author$project$Main$tie,
-						_List_fromArray(
-							['a', 'u']),
-						1) + ('n' + 'd'))
-					]),
+				names: {
+					name: 'Hound',
+					pro: 'H' + (A3($author$project$Main$group, 0, 'a', 'u') + ('n' + 'd'))
+				},
 				sex: 'Female',
 				species: 'Changeling'
 			}),
 			$author$project$Main$char(
 			{
 				extra: 'Wields a scythe',
-				name: _List_fromArray(
-					[
-						'Morrigan',
-						'M' + (A2($author$project$Main$em, 1, $author$project$Main$omega) + ('r' + ($author$project$Main$schwa + ('g' + (A2($author$project$Main$em, 2, 'y') + 'n')))))
-					]),
+				names: {
+					name: 'Morrigan',
+					pro: 'M' + (A2($author$project$Main$em, 1, $author$project$Main$omega) + ('r' + (A2($author$project$Main$em, 3, $author$project$Main$schwa) + ('g' + (A2($author$project$Main$em, 2, 'y') + 'n')))))
+				},
 				sex: 'Female',
 				species: 'Reaper'
 			})

@@ -22,18 +22,13 @@ body table#characters tr.character[sex^=F] {
 body table#characters tr.character td {
   padding-left: 0.5em;
   padding-right: 0.5em;
+  border-radius: 0.25em;
 }
 body table#characters tr.character td#name .name {
   font-weight: bold;
 }
 body table#characters tr.character td#name .pro {
   font-family: "Fira Code", "Noto Sans Mono", monospace;
-}
-body table#characters tr.character td#name .pro::before {
-  content: "<";
-}
-body table#characters tr.character td#name .pro::after {
-  content: ">";
 }
 body table#characters tr.character td#extra {
   text-align: justify;

@@ -44,19 +44,13 @@ body {
 					}
 					td {
 						@include padding($h: calc(1em / 2), $v: false);
-						border-radius: 1em;
+						border-radius: calc(1em / pow(2, 2));
 						&#name {
 							.name {
 								font-weight: bold;
 							}
 							.pro {
 								font-family: $mono;
-								&::before {
-									content: "<";
-								}
-								&::after {
-									content: ">";
-								}
 							}
 						}
 						&#extra {
