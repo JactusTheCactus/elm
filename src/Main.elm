@@ -28,7 +28,7 @@ data =
             { name = "hound"
             , pronunciation =
                 [ "h"
-                , [ "a", "u" |> group 0
+                , [ "a", "u" ] |> group 0
                 , "n"
                 , "d"
                 ]
