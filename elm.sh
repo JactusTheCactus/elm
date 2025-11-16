@@ -2,10 +2,8 @@
 # TODO:
 # FIGURE OUT SORTING ARRAYS
 contains() {
-	local ITEM=$1; shift
-	local i
 	for i in "$@"; do
-		[[ "$ITEM" == "$i" ]] && return 0
+		[[ "$1" == "$i" ]] && return 0
 	done
 	return 1
 }
