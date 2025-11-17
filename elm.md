@@ -1,24 +1,6 @@
 # Thoughts?
-## PUG
-### /index.pug
-```pug
-doctype html
-html
-	head
-		meta(charset="UTF-8")
-		title Characters
-		link(
-			rel="stylesheet"
-			href="style.css"
-		)
-	body
-		div#elm
-		script(src="elm.js")
-		script.
-			Elm.Main.init({node: document.getElementById("elm")});
-```
 ## ELM
-### /Main.elm
+### `/Main.elm`
 ```elm
 module Main exposing (main)
 import Html exposing (Html, table, tbody, text, th, thead, tr)
@@ -35,7 +17,7 @@ data =
                 [ "m"
                 , omega |> em 1
                 , "r"
-                , schwa |> em 3
+                , schwa
                 , "g"
                 , "y" |> em 2
                 , "n"
@@ -50,7 +32,7 @@ data =
             { name = "hound"
             , pronunciation =
                 [ "h"
-                , [ "a", "u" ] |> group 1
+                , [ "a", "u" ] |> group 0
                 , "n"
                 , "d"
                 ]
@@ -104,7 +86,7 @@ main =
                 |> singleton
             )
 ```
-### /Pre.elm
+### `/Pre.elm`
 ```elm
 module Pre exposing (Character, char, em, group, omega, schwa)
 import Char exposing (fromCode)
@@ -246,21 +228,28 @@ char character =
                 )
         ]
 ```
-## TS
-### /pug.ts
-```ts
-require("fs")
-	.writeFileSync(
-		"dist/index.html",
-		require("pug")
-			.renderFile(
-				"src/index.pug",
-				{}
-			)
-	)
+## PUG
+### `/index.pug`
+```pug
+doctype html
+html
+	head
+		meta(charset="UTF-8")
+		title Characters
+		link(
+			rel="stylesheet"
+			href="style.css"
+		)
+	body
+		div#elm
+		script(src="elm.js")
+		script.
+			Elm.Main.init({
+				node: document.getElementById("elm")
+			});
 ```
 ## SCSS
-### /style.scss
+### `/style.scss`
 ```scss
 $fonts: (
 	"Noto+Serif:ital,wght@0,100..900;1,100..900",
@@ -369,4 +358,17 @@ body {
 		}
 	}
 }
+```
+## TS
+### `/pug.ts`
+```ts
+require("fs")
+	.writeFileSync(
+		"dist/index.html",
+		require("pug")
+			.renderFile(
+				"src/index.pug",
+				{}
+			)
+	)
 ```

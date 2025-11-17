@@ -4669,7 +4669,7 @@ var $author$project$Main$data = _List_fromArray(
 						'm',
 						A2($author$project$Pre$em, 1, $author$project$Pre$omega),
 						'r',
-						A2($author$project$Pre$em, 3, $author$project$Pre$schwa),
+						$author$project$Pre$schwa,
 						'g',
 						A2($author$project$Pre$em, 2, 'y'),
 						'n'
@@ -4690,7 +4690,7 @@ var $author$project$Main$data = _List_fromArray(
 						'h',
 						A2(
 						$author$project$Pre$group,
-						1,
+						0,
 						_List_fromArray(
 							['a', 'u'])),
 						'n',

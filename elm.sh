@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
-# TODO:
-# FIGURE OUT SORTING ARRAYS
-contains() {
-	for i in "$@"; do
-		[[ "$1" == "$i" ]] && return 0
-	done
-	return 1
-}
+declare -A seen_ext
 EXTENSIONS=()
 for f in src/*; do
-	f="${f#*.}"
-	if ! contains "$f" "${EXTENSIONS[@]}"; then
-		EXTENSIONS+=("$f")
-	fi
+	ext="${f##*.}"
+	[[ -z ${seen_ext[$ext]} ]] && {
+		EXTENSIONS+=("$ext")
+		seen_ext[$ext]=1
+	}
 done
-# SORT ${EXTENSIONS[@]}
+mapfile -t EXTENSIONS < <(printf '%s\n' "${EXTENSIONS[@]}" | sort)
 exec > elm.md
 echo "# Thoughts?"
 for EXT in "${EXTENSIONS[@]}"; do
@@ -23,7 +17,7 @@ for EXT in "${EXTENSIONS[@]}"; do
 	for i in src/*.$EXT; do
 		FILES+=("$i")
 	done
-	# SORT ${FILES[@]}
+	mapfile -t FILES < <(printf '%s\n' "${FILES[@]}" | sort)
 	for i in "${FILES[@]}"; do
 		FILE="$i"
 		echo "### \`${FILE#src}\`"
